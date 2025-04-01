@@ -43,10 +43,8 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     },
     blogs: [{
-        blog_id: {
-            type: String,
-            required: true
-        }
+        type: String,
+        required: true
     }]
 })
 

@@ -1,22 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const isAuthenticatedOrHasToken = async (req, res, next) => {
-    // Check if authenticated via session (Google OAuth)
-    if (req.isAuthenticated()) {
-        req.user = {
-            _id: req.session.passport.user.id,
-            user_id: req.session.passport.user.user_id,
-            full_name: req.session.passport.user.full_name,
-            email: req.session.passport.user.email,
-            bio: req.session.passport.user.bio || "",
-            profile_pic: req.session.passport.user.profile_pic || ""
-        };
-        return next();
-    }
-
-    // Check if authenticated via JWT
+const isAuthenticated = async (req, res, next) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1];
+        const token = req.headers.authorization;
         if (!token) {
             return res.status(401).json({
                 success: false,
@@ -42,4 +28,4 @@ const isAuthenticatedOrHasToken = async (req, res, next) => {
     }
 };
 
-module.exports = { isAuthenticatedOrHasToken };
+module.exports = { isAuthenticated };

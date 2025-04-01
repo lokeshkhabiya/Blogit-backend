@@ -1,14 +1,14 @@
 const CATEGORY_TYPES = {
-    TECHNOLOGY: "technology",
-    PROGRAMMING: "programming", 
-    LIFESTYLE: "lifestyle",
-    TRAVEL: "travel",
-    FOOD: "food",
-    HEALTH: "health",
-    BUSINESS: "business",
-    EDUCATION: "education",
-    ENTERTAINMENT: "entertainment",
-    SPORTS: "sports"
+    TECHNOLOGY: "Technology",
+    PROGRAMMING: "Programming", 
+    LIFESTYLE: "Lifestyle",
+    TRAVEL: "Travel",
+    FOOD: "Food",
+    HEALTH: "Health",
+    BUSINESS: "Business",
+    EDUCATION: "Education",
+    ENTERTAINMENT: "Entertainment",
+    SPORTS: "Sports"
 };
 
 Object.freeze(CATEGORY_TYPES);

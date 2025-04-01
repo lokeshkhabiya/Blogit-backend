@@ -20,17 +20,24 @@ const blogSchema = new mongoose.Schema({
         required: true
     }, 
     content: {
-        type: {
-            time: Number,
-            blocks: [{
-                id: String,
+        type: [{
+            id: String,
+            type: String,
+            props: {
+                textColor: String,
+                backgroundColor: String,
+                textAlignment: String,
+                level: Number
+            },
+            content: [{
                 type: String,
-                data: mongoose.Schema.Types.Mixed
+                text: String,
+                styles: mongoose.Schema.Types.Mixed
             }],
-            version: String
-        },
+            children: [mongoose.Schema.Types.Mixed]
+        }],
         required: true
-    }, 
+    },
     publish: {
         type: Boolean,
         default: false
@@ -46,7 +53,7 @@ const blogSchema = new mongoose.Schema({
     },
     cover_img: {
         type: String,
-        required: true
+        // required: true
     },
     created_at: {
         type: Date,
