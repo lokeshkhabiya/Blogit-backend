@@ -7,8 +7,8 @@ const userController = require("../controllers/user/user.controller");
 const router = express.Router(); 
 
 router.get("/google", passport.authenticate("google", { scope: ['profile', 'email']}));
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }), (req, res) => {
-    res.redirect(`http://localhost:5173/auth/success`);
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "https://theblogit.vercel.app/login" }), (req, res) => {
+    res.redirect(`https://theblogit.vercel.app/auth/success`);
 })
 router.post("/signupUsingEmail", userController.signupUsingEmail);
 router.post("/signinUsingEmail", userController.signinUsingEmail);
