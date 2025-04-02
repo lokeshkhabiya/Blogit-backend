@@ -1,4 +1,4 @@
-# Black Cherie Media Backend
+# Backend
 
 This is the backend server application for Black Cherie Media, built with Node.js and Express.
 
