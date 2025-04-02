@@ -33,11 +33,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production', // Must be true in production
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Must be 'none' in production
+        secure: true, // Hardcoded for production
+        sameSite: 'none', // Hardcoded for cross-origin
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        httpOnly: true,
-        domain: process.env.NODE_ENV === 'production' ? undefined : 'localhost'
+        httpOnly: true
     }
 }));
 
