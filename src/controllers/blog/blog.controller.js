@@ -148,10 +148,73 @@ const likeUnlikeBlog = async (req, res) => {
     }
 };
 
+const getAllBlogsBulk = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const blogs = await BlogModel.find()
+            .select('blog_id title description cover_img likes_count category')
+            .sort({ created_at: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        const totalBlogs = await BlogModel.countDocuments();
+        const totalPages = Math.ceil(totalBlogs / limit);
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                blogs,
+                currentPage: page,
+                totalPages,
+                totalBlogs,
+                blogsPerPage: limit
+            },
+            message: "Blogs fetched successfully"
+        });
+
+    } catch (error) {
+        console.error("Error while fetching blogs:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Error while fetching blogs",
+            error: error.message
+        });
+    }
+}
+
+const getAllMyBlogs = async (req, res) => {
+    try {
+        const { user_id } = req.user;
+
+        const blogs = await BlogModel.find({ user_id })
+            .select('blog_id title description cover_img likes_count category')
+            .sort({ created_at: -1 });
+
+        return res.status(200).json({
+            success: true,
+            data: blogs,
+            message: "Your blogs fetched successfully"
+        });
+
+    } catch (error) {
+        console.error("Error while fetching your blogs:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Error while fetching your blogs",
+            error: error.message
+        });
+    }
+}
+
 const BlogController = {
     publishBlog,
     getBlog,
     likeUnlikeBlog,
+    getAllBlogsBulk,
+    getAllMyBlogs
 };
 
 module.exports = BlogController;

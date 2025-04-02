@@ -5,6 +5,7 @@ const passport = require("passport");
 const cors = require("cors");
 const connect = require("./db/connection");
 const authRouter = require("./routes/auth.router");
+const userRouter = require("./routes/user.router");
 const blogRouter = require("./routes/blogs.router");
 const commentRouter = require("./routes/comment.router");
 
@@ -46,6 +47,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
 app.use("/blog", blogRouter);
 app.use("/comment", commentRouter);
 

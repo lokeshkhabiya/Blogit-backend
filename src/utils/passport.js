@@ -44,7 +44,8 @@ module.exports = function (passport) {
                 user_id: user.user_id,
                 full_name: user.full_name,
                 email: user.email,
-                profile_pic: user.profile_pic
+                profile_pic: user.profile_pic,
+                bio: user.bio
             });
         });
     });

@@ -97,9 +97,50 @@ const signinUsingEmail = async (req, res) => {
     }
 }
 
+const updateDetails = async (req, res) => {
+    try {
+        const { full_name, bio } = req.body;
+        const { user_id } = req.user;
+
+        const updatedUser = await User.findOneAndUpdate(
+            { user_id },
+            { full_name, bio },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "User details updated successfully",
+            user: {
+                _id: updatedUser._id,
+                user_id: updatedUser.user_id,
+                full_name: updatedUser.full_name,
+                email: updatedUser.email,
+                bio: updatedUser.bio || "",
+                profile_pic: updatedUser.profile_pic || ""
+            }
+        });
+        
+    } catch (error) {
+        console.error("Error while updating user data: ", error);
+        return res.status(500).json({
+            success: false, 
+            message: "Internal server error"
+        })
+    }
+}
+
 const userController = {
     signupUsingEmail,
-    signinUsingEmail
+    signinUsingEmail,
+    updateDetails
 }
 
 module.exports = userController;
