@@ -37,7 +37,7 @@ app.use(session({
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Must be 'none' in production
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
         httpOnly: true,
-        domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : 'localhost'
+        domain: process.env.NODE_ENV === 'production' ? undefined : 'localhost'
     }
 }));
 
