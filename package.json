@@ -11,7 +11,9 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@blocknote/server-util": "^0.26.0",
     "bcryptjs": "^3.0.2",
+    "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

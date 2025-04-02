@@ -4,9 +4,9 @@ const session = require("express-session");
 const passport = require("passport");
 const cors = require("cors");
 const connect = require("./db/connection");
-const authRouter = require("./routes/auth/auth.router");
-const blogRouter = require("./routes/Blogs/blogs.router");
-
+const authRouter = require("./routes/auth.router");
+const blogRouter = require("./routes/blogs.router");
+const commentRouter = require("./routes/comment.router");
 
 // env config
 dotenv.config(); 
@@ -47,6 +47,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRouter);
 app.use("/blog", blogRouter);
+app.use("/comment", commentRouter);
 
 app.listen(port, () => {
     console.log(`process is running on port: ${port}`);

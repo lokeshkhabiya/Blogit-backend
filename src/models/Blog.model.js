@@ -43,8 +43,7 @@ const blogSchema = new mongoose.Schema({
         default: false
     },
     published_on: {
-        type: Date,
-        default: null
+        type: String,
     },
     category: {
         type: String,
