@@ -23,14 +23,22 @@ const port = process.env.PORT || 5050;
 
 // Enable CORS
 app.use(cors({
-    origin: true, // Allow all origins
-    credentials: true // Allow credentials
+    origin: ["https://theblogit.vercel.app", "http://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET || 'keyboard cat',
     resave: false,
     saveUninitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Must be true in production
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Must be 'none' in production
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        httpOnly: true,
+        domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : 'localhost'
+    }
 }));
 
 // passport middleware
