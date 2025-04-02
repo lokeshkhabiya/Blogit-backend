@@ -7,7 +7,7 @@ const userController = require("../controllers/user/user.controller");
 const router = express.Router(); 
 
 router.get("/google", passport.authenticate("google", { scope: ['profile', 'email']}));
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: "https://theblogit.vercel.app/login" }), (req, res) => {
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "https://theblogit.vercel.app/signin" }), (req, res) => {
     res.redirect(`https://theblogit.vercel.app/auth/success`);
 })
 router.post("/signupUsingEmail", userController.signupUsingEmail);
@@ -28,7 +28,7 @@ router.get("/getUser", (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         );
-        res.json({
+        res.status(201).json({
             success: true,
             token,
             user: {
