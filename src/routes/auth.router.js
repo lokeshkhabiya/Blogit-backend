@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.get("/google", passport.authenticate("google", { scope: ['profile', 'email']}));
 router.get("/google/callback", passport.authenticate("google", { failureRedirect: "https://theblogit.vercel.app/signin" }), (req, res) => {
-    // Generate JWT token for Google authenticated user
     const token = jwt.sign(
         {
             _id: req.user.id,
@@ -22,7 +21,6 @@ router.get("/google/callback", passport.authenticate("google", { failureRedirect
         { expiresIn: '24h' }
     );
     
-    // Redirect with token in query param
     res.redirect(`https://theblogit.vercel.app/auth/success?token=${token}`);
 });
 
@@ -30,7 +28,6 @@ router.post("/signupUsingEmail", userController.signupUsingEmail);
 router.post("/signinUsingEmail", userController.signinUsingEmail);
 
 router.get("/getUser", (req, res) => {
-    // Get token from Authorization header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({
